@@ -1,2 +1,3 @@
-# Cpp-BST
-Cpp BST implementation for educational purposes
+# BalancedBinarySearchTree
+Balanced Binary Search Tree implementation
+**Made for educational purposes**
