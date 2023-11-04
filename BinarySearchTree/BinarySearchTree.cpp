@@ -22,3 +22,7 @@ int BinarySearchTree::distanceToValue(int value)
 {
 	return 0;
 }
+
+BinarySearchTree::~BinarySearchTree()
+{
+}
