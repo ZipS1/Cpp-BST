@@ -102,38 +102,36 @@ private:
 	/// Balance tree if new node is root of tree
 	/// </summary>
 	/// <param name="newNode">that was inserted</param>
-	/// <returns>True if balance required, false otherwise</returns>
+	/// <returns>True if case matched, false otherwise</returns>
 	bool balanceIfCaseFirst(Node* newNode);
 
 	/// <summary>
-	/// 
+	/// Checks if parent is black, then tree is balanced.
 	/// </summary>
 	/// <param name="newNode">that was inserted</param>
-	/// <returns>True if balance required, false otherwise</returns>
+	/// <returns>True if case matched, false otherwise</returns>
 	bool balanceIfCaseSecond(Node* newNode);
 
 	/// <summary>
 	/// 
 	/// </summary>
 	/// <param name="newNode">that was inserted</param>
-	/// <returns>True if balance required, false otherwise</returns>
+	/// <returns>True if case matched, false otherwise</returns>
 	bool balanceIfCaseThird(Node* newNode);
 
 	/// <summary>
 	/// 
 	/// </summary>
 	/// <param name="newNode">that was inserted</param>
-	/// <returns>True if balance required, false otherwise</returns>
+	/// <returns>True if case matched, false otherwise</returns>
 	bool balanceIfCaseFourth(Node* newNode);
 
 	/// <summary>
 	/// 
 	/// </summary>
 	/// <param name="newNode">that was inserted</param>
-	/// <returns>True if balance required, false otherwise</returns>
+	/// <returns>True if case matched, false otherwise</returns>
 	bool balanceIfCaseFifth(Node* newNode);
-
-	
 
 	/// <summary>
 	/// Perform left rotation on node.

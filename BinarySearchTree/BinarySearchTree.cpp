@@ -59,11 +59,18 @@ SearchResult BinarySearchTree::findEmptyPlaceFrom(Node* node, int value)
 bool BinarySearchTree::ensureBalanced(Node* newNode)
 {
 	bool isBalanceRequired = false;
-	isBalanceRequired = balanceIfCaseFirst(newNode);
-	isBalanceRequired = balanceIfCaseSecond(newNode);
-	isBalanceRequired = balanceIfCaseThird(newNode);
-	isBalanceRequired = balanceIfCaseFourth(newNode);
-	isBalanceRequired = balanceIfCaseFifth(newNode);
+
+	if (balanceIfCaseFirst(newNode))
+		isBalanceRequired = true;
+	else if (balanceIfCaseSecond(newNode))
+		isBalanceRequired = true;
+	else if (balanceIfCaseThird(newNode))
+		isBalanceRequired = true;
+	else if (balanceIfCaseFourth(newNode))
+		isBalanceRequired = true;
+	else if (balanceIfCaseFifth(newNode))
+		isBalanceRequired = true;
+
 	return isBalanceRequired == false;		
 }
 
@@ -79,7 +86,7 @@ bool BinarySearchTree::balanceIfCaseFirst(Node* newNode)
 
 bool BinarySearchTree::balanceIfCaseSecond(Node* newNode)
 {
-	return false;
+	return newNode->parent->color == Color::Black;
 }
 
 bool BinarySearchTree::balanceIfCaseThird(Node* newNode)
