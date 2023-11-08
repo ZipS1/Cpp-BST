@@ -99,7 +99,7 @@ private:
 	bool ensureBalanced(Node* newNode);
 
 	/// <summary>
-	/// Balance tree if new node is root of tree
+	/// Checks if new node is a root, then do balancing
 	/// </summary>
 	/// <param name="newNode">that was inserted</param>
 	/// <returns>True if case matched, false otherwise</returns>
@@ -113,21 +113,22 @@ private:
 	bool balanceIfCaseSecond(Node* newNode);
 
 	/// <summary>
-	/// 
+	/// Checks if both parent and uncle are red, then do balancing.
 	/// </summary>
 	/// <param name="newNode">that was inserted</param>
 	/// <returns>True if case matched, false otherwise</returns>
 	bool balanceIfCaseThird(Node* newNode);
 
 	/// <summary>
-	/// 
+	/// Checks if parent is red, uncle are black and node and his parent form a zig.
+	/// Transforms tree to Case 5.
 	/// </summary>
 	/// <param name="newNode">that was inserted</param>
-	/// <returns>True if case matched, false otherwise</returns>
+	/// <returns>Always false to check case 5</returns>
 	bool balanceIfCaseFourth(Node* newNode);
 
 	/// <summary>
-	/// 
+	/// Checks if parent is red, uncle is black and node, parent, grandparent form a line to the right or left.
 	/// </summary>
 	/// <param name="newNode">that was inserted</param>
 	/// <returns>True if case matched, false otherwise</returns>

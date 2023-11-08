@@ -91,17 +91,44 @@ bool BinarySearchTree::balanceIfCaseSecond(Node* newNode)
 
 bool BinarySearchTree::balanceIfCaseThird(Node* newNode)
 {
+	Node* uncle = getUncle(newNode);
+	if (uncle != nullptr && uncle->color == Color::Red)
+	{
+		newNode->parent->color = Color::Black;
+		uncle->color = Color::Black;
+		Node* grandparent = getGrandparent(newNode);
+		grandparent->color = Color::Red;
+		ensureBalanced(grandparent);
+		return true;
+	}
 	return false;
 }
 
 bool BinarySearchTree::balanceIfCaseFourth(Node* newNode)
 {
+	Node* grandparent = getGrandparent(newNode);
+	bool isLeftRightZig = newNode == newNode->parent->right && newNode->parent == grandparent->left;
+	bool isRightLeftZig = newNode == newNode->parent->left && newNode->parent == grandparent->right;
+	if (isLeftRightZig)
+		rotateLeft(newNode->parent);
+	else if (isRightLeftZig)
+		rotateRight(newNode->parent);
+
 	return false;
 }
 
 bool BinarySearchTree::balanceIfCaseFifth(Node* newNode)
 {
-	return false;
+	Node* grandparent = getGrandparent(newNode);
+	newNode->parent->color = Color::Black;
+	grandparent->color = Color::Red;
+	bool isLineToLeft = newNode == newNode->parent->left && newNode->parent == grandparent->left;
+	bool isLineToRight = newNode == newNode->parent->right && newNode->parent == grandparent->right;
+	if (isLineToLeft == false && isLineToRight == false)
+		return false;
+
+	isLineToLeft ? rotateRight(grandparent) : rotateLeft(grandparent);
+	return true;
 }
 #pragma endregion
 
