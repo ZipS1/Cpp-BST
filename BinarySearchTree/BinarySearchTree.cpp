@@ -136,8 +136,8 @@ int BinarySearchTree::stepsToValue(Node* start, int value)
 		return 0;
 
 	return start->data > value ?
-		stepsToValue(start->right, value) + 1 :
-		stepsToValue(start->left, value) + 1;
+		stepsToValue(start->left, value) + 1 :
+		stepsToValue(start->right, value) + 1;
 }
 
 bool BinarySearchTree::ensureBalanced(Node* newNode)
