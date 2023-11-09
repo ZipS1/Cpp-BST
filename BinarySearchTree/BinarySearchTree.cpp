@@ -121,12 +121,17 @@ bool BinarySearchTree::balanceIfCaseFourth(Node* newNode)
 	Node* grandparent = getGrandparent(newNode);
 	bool isLeftRightZig = newNode == newNode->parent->right && newNode->parent == grandparent->left;
 	bool isRightLeftZig = newNode == newNode->parent->left && newNode->parent == grandparent->right;
+	if (isLeftRightZig == false && isRightLeftZig == false)
+		return false;
+
 	if (isLeftRightZig)
 		rotateLeft(newNode->parent);
 	else if (isRightLeftZig)
 		rotateRight(newNode->parent);
 
-	return false;
+	Node* NewNodeChild = newNode->left == nullptr ? newNode->right : newNode->left;
+	balanceIfCaseFifth(NewNodeChild);
+	return true;
 }
 
 bool BinarySearchTree::balanceIfCaseFifth(Node* newNode)
@@ -148,9 +153,18 @@ void BinarySearchTree::rotateLeft(Node* node)
 {
 	Node* rightNode = node->right;
 	node->right = rightNode->left;
+	if (node->right != nullptr)
+		node->right->parent = node;
+
+	if (node->parent != nullptr)
+		node == node->parent->left ?
+		node->parent->left = rightNode :
+		node->parent->right = rightNode;
+
 	rightNode->left = node;
 	rightNode->parent = node->parent;
 	node->parent = rightNode;
+	
 
 	if (root == node)
 		root = rightNode;
@@ -160,6 +174,14 @@ void BinarySearchTree::rotateRight(Node* node)
 {
 	Node* leftNode = node->left;
 	node->left = leftNode->right;
+	if (node->left != nullptr)
+		node->left->parent = node;
+
+	if (node->parent != nullptr)
+		node == node->parent->left ?
+		node->parent->left = leftNode :
+		node->parent->right = leftNode;
+
 	leftNode->right = node;
 	leftNode->parent = node->parent;
 	node->parent = leftNode;

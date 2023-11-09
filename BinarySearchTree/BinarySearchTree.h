@@ -83,7 +83,7 @@ private:
 	Node* root;
 
 	/// <summary>
-	/// Finds a place for value in tree. Recursive function
+	/// Find a place for value in tree. Recursive function
 	/// </summary>
 	/// <param name="node">- starting point to find place</param>
 	/// <param name="value">to find place for</param>
@@ -94,7 +94,7 @@ private:
 	SearchResult findEmptyPlaceFrom(Node* node, Side side, int value);
 	
 	/// <summary>
-	/// Checks if BST is balanced and balance if it is not
+	/// Check if BST is balanced and balance if it is not
 	/// </summary>
 	/// <returns>
 	/// True if BST was already balanced. 
@@ -103,36 +103,36 @@ private:
 	bool ensureBalanced(Node* newNode);
 
 	/// <summary>
-	/// Checks if new node is a root, then do balancing
+	/// Check if new node is a root, then do balancing
 	/// </summary>
 	/// <param name="newNode">that was inserted</param>
 	/// <returns>True if case matched, false otherwise</returns>
 	bool balanceIfCaseFirst(Node* newNode);
 
 	/// <summary>
-	/// Checks if parent is black, then tree is balanced.
+	/// Check if parent is black, then tree is balanced.
 	/// </summary>
 	/// <param name="newNode">that was inserted</param>
 	/// <returns>True if case matched, false otherwise</returns>
 	bool balanceIfCaseSecond(Node* newNode);
 
 	/// <summary>
-	/// Checks if both parent and uncle are red, then do balancing.
+	/// Check if both parent and uncle are red, then do balancing.
 	/// </summary>
 	/// <param name="newNode">that was inserted</param>
 	/// <returns>True if case matched, false otherwise</returns>
 	bool balanceIfCaseThird(Node* newNode);
 
 	/// <summary>
-	/// Checks if parent is red, uncle are black and node and his parent form a zig.
-	/// Transforms tree to Case 5.
+	/// Check if parent is red, uncle are black and node and his parent form a zig.
+	/// Transforms tree to Case 5 and resolve using Case 5 algorithm.
 	/// </summary>
 	/// <param name="newNode">that was inserted</param>
-	/// <returns>Always false to check case 5</returns>
+	/// <returns>True if case matched, false otherwise</returns>
 	bool balanceIfCaseFourth(Node* newNode);
 
 	/// <summary>
-	/// Checks if parent is red, uncle is black and node, parent, grandparent form a line to the right or left.
+	/// Check if parent is red, uncle is black and node, parent, grandparent form a line to the right or left.
 	/// </summary>
 	/// <param name="newNode">that was inserted</param>
 	/// <returns>True if case matched, false otherwise</returns>
@@ -151,14 +151,14 @@ private:
 	void rotateRight(Node* node);
 	
 	/// <summary>
-	/// Returns grandparent of node. Grandparent is parent of parent of node
+	/// Return grandparent of node. Grandparent is parent of parent of node
 	/// </summary>
 	/// <param name="node">of which to get grandparent</param>
 	/// <returns>Grandparent of node OR  nullptr if grandparent does not exist</returns>
 	Node* getGrandparent(Node* node);
 
 	/// <summary>
-	/// Returns uncle of node. Uncle is child of grandparent which is not parent of node
+	/// Return uncle of node. Uncle is child of grandparent which is not parent of node
 	/// </summary>
 	/// <param name="node">of which to get uncle</param>
 	/// <returns>Uncle of node OR nullptr if uncle does not exist</returns>
