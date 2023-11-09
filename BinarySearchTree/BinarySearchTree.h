@@ -1,5 +1,7 @@
 #pragma once
 
+#include <iostream>
+
 /* --- УСТРОЙСТВО ДЕРЕВА ---
 * Источник: https://www.youtube.com/watch?v=0BUX_PotA4c
 * Балансировка дерева: https://clck.ru/36Trxy
@@ -34,6 +36,8 @@
 
 enum class Color { Red, Black };
 
+enum class Side { Left, Right, Root };
+
 /// <summary>
 /// Structure that represents unit of data in BST
 /// </summary>
@@ -55,7 +59,7 @@ struct Node
 struct SearchResult 
 {
 	Node* parent;
-	Node** nodePointer;
+	Side side;
 };
 
 class BinarySearchTree
@@ -87,7 +91,7 @@ private:
 	/// Search result with parent of node place and found node place.
 	///	Both nullptrs if value is already in tree.
 	/// </returns>
-	SearchResult findEmptyPlaceFrom(Node* node, int value);
+	SearchResult findEmptyPlaceFrom(Node* node, Side side, int value);
 	
 	/// <summary>
 	/// Checks if BST is balanced and balance if it is not

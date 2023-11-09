@@ -2,12 +2,25 @@
 
 bool BinarySearchTree::insert(int value)
 {
-	SearchResult result = findEmptyPlaceFrom(root, value);
-	if (result.nodePointer == nullptr)
+	SearchResult result = findEmptyPlaceFrom(root, Side::Root, value);
+	if (result.parent == nullptr && result.side != Side::Root)
 		return false;
 
-	*result.nodePointer = new Node(result.parent, value);
-	ensureBalanced(*result.nodePointer);
+	switch (result.side)
+	{
+	case Side::Left:
+		result.parent->left = new Node(result.parent, value);
+		ensureBalanced(result.parent->left);
+		break;
+	case Side::Right:
+		result.parent->right = new Node(result.parent, value);
+		ensureBalanced(result.parent->right);
+		break;
+	case Side::Root:
+		root = new Node(nullptr, value);
+		ensureBalanced(root);
+		break;
+	}
 }
 
 void BinarySearchTree::outputSymmetricWalk()
@@ -32,13 +45,14 @@ BinarySearchTree::~BinarySearchTree()
 {
 }
 
-SearchResult BinarySearchTree::findEmptyPlaceFrom(Node* node, int value)
+SearchResult BinarySearchTree::findEmptyPlaceFrom(Node* node, Side side,  int value)
 {
 	static Node* parent = nullptr;
+	SearchResult result;
 
 	if (node == nullptr)
 	{
-		SearchResult result{ parent, &node };
+		result = { parent, side};
 		parent = nullptr;
 		return result;
 	}
@@ -46,14 +60,15 @@ SearchResult BinarySearchTree::findEmptyPlaceFrom(Node* node, int value)
 	if (value == node->data)
 	{
 		parent = nullptr;
-		return { nullptr,  nullptr };
+		return { nullptr,  Side::Left };
 	}
 
 	parent = node;
 	if (value < node->data)
-		findEmptyPlaceFrom(node->left, value);
+		result = findEmptyPlaceFrom(node->left, Side::Left, value);
 	else
-		findEmptyPlaceFrom(node->right, value);
+		result = findEmptyPlaceFrom(node->right, Side::Right, value);
+	return result;
 }
 
 bool BinarySearchTree::ensureBalanced(Node* newNode)
@@ -74,7 +89,7 @@ bool BinarySearchTree::ensureBalanced(Node* newNode)
 #pragma region BalancingCases
 bool BinarySearchTree::balanceIfCaseFirst(Node* newNode)
 {
-	if (newNode->parent != nullptr)
+	if (newNode != root)
 		return false;
 
 	newNode->color = Color::Black;
