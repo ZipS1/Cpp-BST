@@ -4,4 +4,5 @@
 int main()
 {
     BinarySearchTree tree;
+    tree.insert(1);
 }

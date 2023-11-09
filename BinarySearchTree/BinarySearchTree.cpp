@@ -3,11 +3,11 @@
 bool BinarySearchTree::insert(int value)
 {
 	SearchResult result = findEmptyPlaceFrom(root, value);
-	if (result.node == nullptr)
+	if (result.nodePointer == nullptr)
 		return false;
 
-	result.node = new Node(result.parent, value);
-	ensureBalanced(result.node);
+	*result.nodePointer = new Node(result.parent, value);
+	ensureBalanced(*result.nodePointer);
 }
 
 void BinarySearchTree::outputSymmetricWalk()
@@ -38,7 +38,7 @@ SearchResult BinarySearchTree::findEmptyPlaceFrom(Node* node, int value)
 
 	if (node == nullptr)
 	{
-		SearchResult result{ parent, node };
+		SearchResult result{ parent, &node };
 		parent = nullptr;
 		return result;
 	}
@@ -58,18 +58,15 @@ SearchResult BinarySearchTree::findEmptyPlaceFrom(Node* node, int value)
 
 bool BinarySearchTree::ensureBalanced(Node* newNode)
 {
-	bool isBalanceRequired = false;
+	bool isBalanceRequired = true;
 
-	if (balanceIfCaseFirst(newNode))
-		isBalanceRequired = true;
-	else if (balanceIfCaseSecond(newNode))
-		isBalanceRequired = true;
-	else if (balanceIfCaseThird(newNode))
-		isBalanceRequired = true;
-	else if (balanceIfCaseFourth(newNode))
-		isBalanceRequired = true;
-	else if (balanceIfCaseFifth(newNode))
-		isBalanceRequired = true;
+	if (balanceIfCaseFirst(newNode)) {}
+	else if (balanceIfCaseSecond(newNode)) {}
+	else if (balanceIfCaseThird(newNode)) {}
+	else if (balanceIfCaseFourth(newNode)) {}
+	else if (balanceIfCaseFifth(newNode)) {}
+	else
+		isBalanceRequired = false;
 
 	return isBalanceRequired == false;		
 }

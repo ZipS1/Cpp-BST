@@ -55,7 +55,7 @@ struct Node
 struct SearchResult 
 {
 	Node* parent;
-	Node* node;
+	Node** nodePointer;
 };
 
 class BinarySearchTree
