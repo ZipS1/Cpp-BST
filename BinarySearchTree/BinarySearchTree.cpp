@@ -21,28 +21,83 @@ bool BinarySearchTree::insert(int value)
 		ensureBalanced(root);
 		break;
 	}
+	
+	size++;
+	return true;
 }
 
 void BinarySearchTree::outputSymmetricWalk()
 {
+	outputNodeSymmetric(root);
+	std::cout << std::endl;
 }
 
 void BinarySearchTree::outputWalkInWidth()
 {
+	if (root == nullptr)
+		return;
+
+	std::queue<Node*> q;
+	q.push(root);
+	
+	int elementsAtLevel, i;
+	while (q.size() != 0)
+	{
+		elementsAtLevel = q.size();
+		for (i = 0; i < elementsAtLevel; i++)
+		{
+			Node* front = q.front();
+			std::cout << " " << front->data;
+			q.pop();
+
+			if (front->left != nullptr)
+				q.push(front->left);
+
+			if (front->right != nullptr)
+				q.push(front->right);
+		}
+	}
 }
 
-float BinarySearchTree::getAverage()
+float BinarySearchTree::getAverage(bool* isOk)
 {
-	return 0.0f;
+	if (root = nullptr)
+	{
+		*isOk = false;
+		return 0.0f;
+	}
+
+	int sum = handleNodeSum(root);
+	return (float)sum / size;
+		
 }
 
 int BinarySearchTree::distanceToValue(int value)
 {
-	return 0;
+	return stepsToValue(root, value);
 }
 
 BinarySearchTree::~BinarySearchTree()
 {
+}
+
+void BinarySearchTree::outputNodeSymmetric(Node* node)
+{
+	if (node == nullptr)
+		return;
+
+	outputNodeSymmetric(node->left);
+	std::cout << " " << node->data;
+	outputNodeSymmetric(node->right);
+
+}
+
+int BinarySearchTree::handleNodeSum(Node* node)
+{
+	if (node == nullptr)
+		return 0;
+
+	return node->data + handleNodeSum(node->left) + handleNodeSum(node->right);
 }
 
 SearchResult BinarySearchTree::findEmptyPlaceFrom(Node* node, Side side,  int value)
@@ -69,6 +124,19 @@ SearchResult BinarySearchTree::findEmptyPlaceFrom(Node* node, Side side,  int va
 	else
 		result = findEmptyPlaceFrom(node->right, Side::Right, value);
 	return result;
+}
+
+int BinarySearchTree::stepsToValue(Node* start, int value)
+{
+	if (start == nullptr)
+		return INT_MIN;
+
+	if (start->data == value)
+		return 0;
+
+	return start->data > value ?
+		stepsToValue(start->right, value) + 1 :
+		stepsToValue(start->left, value) + 1;
 }
 
 bool BinarySearchTree::ensureBalanced(Node* newNode)
@@ -129,8 +197,8 @@ bool BinarySearchTree::balanceIfCaseFourth(Node* newNode)
 	else if (isRightLeftZig)
 		rotateRight(newNode->parent);
 
-	Node* NewNodeChild = newNode->left == nullptr ? newNode->right : newNode->left;
-	balanceIfCaseFifth(NewNodeChild);
+	Node* newNodeChild = newNode->left == nullptr ? newNode->right : newNode->left;
+	balanceIfCaseFifth(newNodeChild);
 	return true;
 }
 

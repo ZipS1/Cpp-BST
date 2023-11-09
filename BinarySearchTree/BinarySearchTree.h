@@ -1,6 +1,6 @@
 #pragma once
-
 #include <iostream>
+#include <queue>
 
 /* --- УСТРОЙСТВО ДЕРЕВА ---
 * Источник: https://www.youtube.com/watch?v=0BUX_PotA4c
@@ -32,6 +32,18 @@
 * Для балансировки дерева применяются перекрашивания цветов
 * и левые/правые повороты на узлах.
 * -------------------------------------------------------------------------
+* 
+* --- Код для проверки всех случаев балансировки ---
+BinarySearchTree tree;
+tree.insert(1); // Trigger Case 1
+tree.insert(0); // Trigger Case 2
+tree.insert(3); // Trigger Case 2
+tree.insert(2); // Trigger Case 3
+tree.insert(8); // Trigger Case 2
+tree.insert(11); // Trigger Case 3
+tree.insert(7); // Trigger Case 2
+tree.insert(9); // Trigger Case 3 + Case 5 on Node 8
+tree.insert(10); // Trigger Case 4
 */
 
 enum class Color { Red, Black };
@@ -74,13 +86,51 @@ public:
 	///	False if value already in tree.
 	/// </returns>
 	bool insert(int value);
+
+	/// <summary>
+	/// Output data in format Left Child -> Parent -> Right Child,
+	/// starting from the least (bottom-left) node. 
+	/// </summary>
 	void outputSymmetricWalk();
+
+	/// <summary>
+	/// Output data in format Root -> Root Left Child -> Root Right Child and so on 
+	/// left to right down to the bottom of the tree.
+	/// </summary>
 	void outputWalkInWidth();
-	float getAverage();
+
+	/// <summary>
+	/// Calculate average of values in tree.
+	/// </summary>
+	/// <param name="isOk">false if tree is empty</param>
+	/// <returns>average of values in tree</returns>
+	float getAverage(bool* isOk);
+
+	/// <summary>
+	/// Return distance to value in tree
+	/// </summary>
+	/// <param name="value">to calculate distance for</param>
+	/// <returns>ditance to value OR negative number if no such value exists in tree</returns>
 	int distanceToValue(int value);
 	~BinarySearchTree();
+
+	int getSize() { return size; }
 private:
-	Node* root;
+	Node* root = nullptr;
+	int size = 0;
+
+	/// <summary>
+	/// Recursive function to perform symmetric walk
+	/// </summary>
+	/// <param name="node">to output</param>
+	void outputNodeSymmetric(Node* node);
+
+	/// <summary>
+	/// Recursive function to find sum
+	/// </summary>
+	/// <param name="node">to find sum</param>
+	/// <returns>Sum</returns>
+	int handleNodeSum(Node* node);
 
 	/// <summary>
 	/// Find a place for value in tree. Recursive function
@@ -93,6 +143,14 @@ private:
 	/// </returns>
 	SearchResult findEmptyPlaceFrom(Node* node, Side side, int value);
 	
+	/// <summary>
+	/// Recursive function to get distance to value
+	/// </summary>
+	/// <param name="start">Node to calculate distance from</param>
+	/// <param name="value">Value to find</param>
+	/// <returns></returns>
+	int stepsToValue(Node* start, int value);
+
 	/// <summary>
 	/// Check if BST is balanced and balance if it is not
 	/// </summary>
