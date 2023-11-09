@@ -61,12 +61,13 @@ void BinarySearchTree::outputWalkInWidth()
 
 float BinarySearchTree::getAverage(bool* isOk)
 {
-	if (root = nullptr)
+	if (root == nullptr)
 	{
 		*isOk = false;
 		return 0.0f;
 	}
 
+	*isOk = true;
 	int sum = handleNodeSum(root);
 	return (float)sum / size;
 		
